@@ -17,6 +17,7 @@ export function App() {
   //   JSON.parse(window.localStorage.getItem('contacts')) ?? []
   // );
   // const [filter, setFilter] = useState("");
+
   const dispatch = useDispatch();
   const contacts = useSelector(store => store.contacts);
   const filter = useSelector(store => store.filter);
