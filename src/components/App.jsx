@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact, removeContact, changeFilter } from './Store/store';
+import { removeContact, changeFilter } from './Redux/store';
 // components
 import { InputForm } from './InputForm/InputForm';
 import { Filter } from './Filter/Filter';
@@ -10,7 +10,7 @@ import { PhonebookBox } from './Phonebook/Phonebook.styled';
 import { InputFormBox } from './InputForm/InputForm.styled';
 import { ContactListBox } from './ContactList/ContactList.styled';
 // other libs
-import { nanoid } from 'nanoid';
+import { useSubmitHandle } from './Functions/addContact';
 
 export function App() {
   // const [contacts, setContacts] = useState(() => 
@@ -21,19 +21,20 @@ export function App() {
   const dispatch = useDispatch();
   const contacts = useSelector(store => store.contacts);
   const filter = useSelector(store => store.filter);
+  const submitHandle = useSubmitHandle();
 
   useEffect(() => {
     localStorage.setItem("contacts", JSON.stringify(contacts))
   }, [contacts]);
 
-  const submitHandle = (data) => {
-    const equalName = contacts.find(el => (el.name.toLowerCase() === data.name.toLowerCase()));
-    if (equalName) return alert(equalName.name + " is already in contacts");
+  // const submitHandle = (data) => {
+  //   const equalName = contacts.find(el => (el.name.toLowerCase() === data.name.toLowerCase()));
+  //   if (equalName) return alert(equalName.name + " is already in contacts");
     
-    data.id = nanoid();
-    dispatch(addContact(data))
-    // setContacts(contacts => [data, ...contacts])
-  }
+  //   data.id = nanoid();
+  //   dispatch(addContact(data))
+  //   // setContacts(contacts => [data, ...contacts])
+  // }
   const filterChange = (evt) => {
     evt.preventDefault();
     dispatch(changeFilter(evt.currentTarget.value));

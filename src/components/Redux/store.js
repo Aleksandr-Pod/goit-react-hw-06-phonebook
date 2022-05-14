@@ -1,5 +1,6 @@
-import { configureStore, createSlice } from '@reduxjs/toolkit';
-
+import { configureStore, combineReducers, createSlice } from '@reduxjs/toolkit';
+import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 //              если использовать {createAction, createReducer}
 // const contacts = {
 //     items: [],
@@ -12,6 +13,7 @@ import { configureStore, createSlice } from '@reduxjs/toolkit';
 //     [addContact]: (state, action) => state.unshift(action.payload),
 //     [removeContact]: (state, action) => state.filter(el => el.id !== action.payload)
 // })
+
 
 const contactsSlice = createSlice({
     name: 'contacts',
@@ -32,9 +34,24 @@ const filterSlice = createSlice({
 })
 export const { changeFilter } = filterSlice.actions;
 
-export const store = configureStore({
-    reducer: {
-        contacts: contactsSlice.reducer,
-        filter: filterSlice.reducer
-    }
+
+const persistConfig = {
+  key: 'root',
+  storage,
+}
+const rootReducer = combineReducers({
+    contacts: contactsSlice.reducer,
+    filter: filterSlice.reducer
+})
+const persistedReduser = persistReducer(persistConfig, rootReducer);
+
+const store = configureStore({
+    reducer: persistedReduser,
+    middleware: getDefaultMiddleware => getDefaultMiddleware({
+        serializableCheck: {
+            ignoreActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
+        }
+    })
 });
+const persistor = persistStore(store);
+export { store, persistor };
