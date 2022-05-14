@@ -10,7 +10,7 @@ import { PhonebookBox } from './Phonebook/Phonebook.styled';
 import { InputFormBox } from './InputForm/InputForm.styled';
 import { ContactListBox } from './ContactList/ContactList.styled';
 // other libs
-import { useSubmitHandle } from './Functions/addContact';
+import { useSubmitHandle } from './Hooks/addContact';
 
 export function App() {
   // const [contacts, setContacts] = useState(() => 
