@@ -1,47 +1,29 @@
 import { configureStore, combineReducers, createSlice } from '@reduxjs/toolkit';
 import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-//              если использовать {createAction, createReducer}
-// const contacts = {
-//     items: [],
-//     filter: ''
-// }
-// const addContact = createAction('addContact');
-// const removeContact = createAction('removeContact');
 
-// const reducer = createReducer(contacts, {
-//     [addContact]: (state, action) => state.unshift(action.payload),
-//     [removeContact]: (state, action) => state.filter(el => el.id !== action.payload)
-// })
-
+const initialState = {
+  items: [],
+  filter: '',
+};
 
 const contactsSlice = createSlice({
     name: 'contacts',
-    initialState: JSON.parse(window.localStorage.getItem('contacts')) ?? [],
+    initialState,
     reducers: {
-        addContact(state, action) { return [action.payload, ...state] },
-        removeContact(state, action) {return state.filter(el => el.id !== action.payload)},
+        addContact(state, action) { state.items.push(action.payload) },
+        removeContact(state, action) { state.items = state.items.filter(el => el.id !== action.payload) },
+        changeFilter(state, action) {state.filter = action.payload}
     }
 })
-export const { addContact, removeContact } = contactsSlice.actions;
-
-const filterSlice = createSlice({
-    name: 'filter',
-    initialState: '',
-    reducers: {
-        changeFilter(state, action) {return action.payload}
-    }
-})
-export const { changeFilter } = filterSlice.actions;
-
+export const { addContact, removeContact, changeFilter } = contactsSlice.actions;
 
 const persistConfig = {
   key: 'root',
   storage,
 }
 const rootReducer = combineReducers({
-    contacts: contactsSlice.reducer,
-    filter: filterSlice.reducer
+    contacts: contactsSlice.reducer
 })
 const persistedReduser = persistReducer(persistConfig, rootReducer);
 
