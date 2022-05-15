@@ -13,7 +13,7 @@ export const useSubmitHandle = (data) => {
 
   const equalName = contacts.items.find(el => (el.name.toLowerCase() === data.name.toLowerCase()));
   if (equalName) return alert(equalName.name + " is already in contacts");
-  
+
   data.id = nanoid();
   dispatch(addContact(data));
   }

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeContact, changeFilter } from './Redux/store';
 // components
@@ -23,9 +23,9 @@ export function App() {
   const filter = useSelector(store => store.filter);
   const submitHandle = useSubmitHandle();
 
-  useEffect(() => {
-    localStorage.setItem("contacts", JSON.stringify(contacts))
-  }, [contacts]);
+  // useEffect(() => {
+  //   localStorage.setItem("contacts", JSON.stringify(contacts))
+  // }, [contacts]);
 
   // const submitHandle = (data) => {
   //   const equalName = contacts.find(el => (el.name.toLowerCase() === data.name.toLowerCase()));
@@ -45,14 +45,14 @@ export function App() {
     // setContacts(contacts => contacts.filter(contact => contact.id !== id))
   }
   
-  const normalizedFilter = filter.toLowerCase();
-  const filteredContacts = contacts.filter(contact => (contact.name.toLowerCase().includes(normalizedFilter)));
+  const normalizedFilter = contacts.filter.toLowerCase();
+  const filteredContacts = contacts.items.filter(contact => (contact.name.toLowerCase().includes(normalizedFilter)));
 
   return (
     <PhonebookBox>
       <InputFormBox>
         <h1>Phonebook</h1>
-        <InputForm submitHandle={submitHandle}/>
+        <InputForm submitHandle={e => submitHandle(e)}/>
       </InputFormBox>
       <ContactListBox>
         <h2>Contact List</h2>
