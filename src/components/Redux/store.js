@@ -2,10 +2,7 @@ import { configureStore, createSlice } from '@reduxjs/toolkit';
 import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
-const initialState = {
-  items: [],
-  filter: '',
-};
+const initialState = {items: [], filter: ''};
 
 const contactsSlice = createSlice({
     name: 'contacts',
@@ -18,21 +15,14 @@ const contactsSlice = createSlice({
 })
 export const { addContact, removeContact, changeFilter } = contactsSlice.actions;
 
-const persistConfig = {
-  key: 'contacts',
-  storage,
-}
-// const rootReducer = combineReducers({
-//     contacts: contactsSlice.reducer
-// })
-const persistedReduser = persistReducer(persistConfig, contactsSlice.reducer);
+const persistConfig = { key:'contacts', storage };
+
+const persistedReduсer = persistReducer(persistConfig, contactsSlice.reducer);
 
 const store = configureStore({
-    reducer: { contacts: persistedReduser },
+    reducer: { contacts: persistedReduсer },
     middleware: getDefaultMiddleware => getDefaultMiddleware({
-        serializableCheck: {
-            ignoreActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
-        }
+        serializableCheck: { ignoreActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER] }
     })
 });
 const persistor = persistStore(store);
