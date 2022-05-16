@@ -7,17 +7,14 @@ import { nanoid } from 'nanoid';
 import { addContact } from '../Redux/store';
 
 export function InputForm () {
-
     const contacts = useSelector(store => store.contacts.items);
     const dispatch = useDispatch();
-    console.log('contacts: ', contacts);
 
     const onSubmit = (values, action) => {
         const equalName = contacts.find(el => (el.name.toLowerCase() === values.name.toLowerCase()));
         if (equalName) return alert(equalName.name + " is already in contacts");
 
         values.id = nanoid();
-        console.log(values);
         dispatch(addContact(values));
         action.resetForm();
     }
@@ -43,7 +40,4 @@ export function InputForm () {
             </Formik>
         )
 
-}
-InputForm.propTypes = {
-  submitHandle: PropTypes.func
 }
