@@ -1,10 +1,7 @@
 import { ContactItem } from "../ContactItem/ContactItem";
 import PropTypes from 'prop-types';
 
-
 export function ContactList({ contacts }) {
-
-    // const contacts = useSelector(store => store.contacts.items);
     return (
         <>
             {contacts.map((contact, idx) => (
@@ -15,5 +12,4 @@ export function ContactList({ contacts }) {
 }
 ContactList.propTypes = {
   contacts: PropTypes.arrayOf(PropTypes.object),
-  onDelete: PropTypes.func
 }

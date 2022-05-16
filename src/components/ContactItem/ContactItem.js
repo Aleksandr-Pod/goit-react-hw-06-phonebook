@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { removeContact } from "components/Redux/store";
 
-export function ContactItem({ contact, idx, onDelete }) {
+export function ContactItem({ contact, idx }) {
     const dispatch = useDispatch();
     return (
         <ListItem>
@@ -16,5 +16,4 @@ export function ContactItem({ contact, idx, onDelete }) {
 ContactItem.propTypes = {
   contact: PropTypes.object,
   idx: PropTypes.number,
-  onDelete: PropTypes.func
 }
