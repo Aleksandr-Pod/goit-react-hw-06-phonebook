@@ -1,10 +1,10 @@
-import { InputItem } from "./InputForm.styled";
-import { Formik, Form } from 'formik';
-import PropTypes from 'prop-types';
-// import { useSubmitHandle } from 'components/Hooks/addContact';
 import { useSelector, useDispatch } from 'react-redux';
-import { nanoid } from 'nanoid';
 import { addContact } from '../Redux/store';
+// styled components
+import { InputItem } from "./InputForm.styled";
+// other libs
+import { nanoid } from 'nanoid';
+import { Formik, Form } from 'formik';
 
 export function InputForm () {
     const contacts = useSelector(store => store.contacts.items);
