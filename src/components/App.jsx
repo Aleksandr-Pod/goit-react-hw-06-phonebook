@@ -18,12 +18,12 @@ export function App() {
   return (
     <PhonebookBox>
       <InputFormBox>
-        <h1>Phonebook</h1>
+        <h1 style={{textAlign: 'center'}}>Phonebook</h1>
         <InputForm/>
       </InputFormBox>
       <ContactListBox>
-        <h2>Contact List</h2>
         <Filter/>
+        <h2 style={{textAlign: 'center'}}>Contact List</h2>
         {contacts.length ?
           <ContactList contacts={filteredContacts}/> :
           <p>No any contacts</p>}
