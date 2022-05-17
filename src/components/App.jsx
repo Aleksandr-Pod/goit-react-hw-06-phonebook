@@ -13,7 +13,7 @@ export function App() {
   const myFilter = useSelector(store => store.contacts.filter);
  
   const normalizedFilter = myFilter.toLowerCase();
-  const filteredContacts = contacts.filter(contact => (contact.name.toLowerCase().includes(normalizedFilter)));
+  const filteredContacts = contacts.filter(contact => contact.name.toLowerCase().includes(normalizedFilter));
 
   return (
     <PhonebookBox>
@@ -23,10 +23,7 @@ export function App() {
       </InputFormBox>
       <ContactListBox>
         <Filter/>
-        <h2 style={{textAlign: 'center'}}>Contact List</h2>
-        {contacts.length ?
           <ContactList contacts={filteredContacts}/> :
-          <p>No any contacts</p>}
       </ContactListBox>
     </PhonebookBox>
   );
